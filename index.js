@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const configFile = require('./config.json');
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 client.once('ready', () => {
     console.log('Ready!');
     if (configFile.clientID.toString) {
@@ -12,8 +13,15 @@ client.once('ready', () => {
 });
 client.login(configFile.token);
 client.on('message', message => {
-    switch (message.content) {
-        case `${configFile.prefix}ping`:
+    const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(configFile.prefix)})\\s*`); // allow the prefix or mentioning
+	if (!prefixRegex.test(message.content) || message.author.bot) return;
+
+	const [, matchedPrefix] = message.content.match(prefixRegex);
+	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
+    switch (command) {
+        case "ping":
             message.channel.send('Pong!');
             break;
         default:
