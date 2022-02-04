@@ -1,5 +1,11 @@
 # silver-palm-tree
-A Discord bot boilerplate using Discord.js and Node.js.
+## Don't use this anymore
+This uses an outdated version of Discord.js, so you should use the steps in the [official Discord.js guide](https://discordjs.guide/) to make your own bot.
+
+----
+
+
+A Discord bot boilerplate using Discord.js 12 and Node.js.
 
 To develop your bot further, you may want to use the [official Discord.js guide](https://discordjs.guide/).
 ## How to set up the config.json
